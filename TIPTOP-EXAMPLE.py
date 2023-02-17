@@ -13,17 +13,17 @@ rc("text", usetex=False)
 # In[ ]:
 
 
-overallSimulation("perfTest", "SOUL", 'perfTest', 'testSOUL', doPlot=True, doConvolve=True)
+overallSimulation("perfTest", "HarmoniLTAO_3", 'perfTest', 'testHARMONI3', doPlot=True, doConvolve=True)
 
 
 # In[ ]:
 
 
-overallSimulation("perfTest", "MAVIS", 'perfTest', 'testMAVIS', doPlot=True, doConvolve=True)
+#overallSimulation("perfTest", "MAVIS", 'perfTest', 'testMAVIS', doPlot=True, doConvolve=True)
 
 
 # In[ ]:
 
 
-overallSimulation("perfTest", "SPHERE", 'perfTest', 'testSPHERE', doPlot=True, doConvolve=True)
+#overallSimulation("perfTest", "SPHERE", 'perfTest', 'testSPHERE', doPlot=True, doConvolve=True)
 

@@ -211,7 +211,7 @@ def overallSimulation(path, parametersFile, outputDir, outputFile, doConvolve=Fa
         if verbose:
             print('******** LO PART')
         psInMas_NGS        = fao.freq.psInMas[0] * (LO_wvl/wvl) #airy pattern PSF FWHM
-        
+        print(fao.freq.psInMas[0])
         if verbose:
             print('******** HO PSF - NGS directions')
         NGS_SR, psdArray, psfLE_NGS, NGS_FWHM_mas = psdSetToPsfSet(PSD[-nNaturalGS:],
@@ -224,6 +224,7 @@ def overallSimulation(path, parametersFile, outputDir, outputFile, doConvolve=Fa
         for i in range(nNaturalGS):
             cartNGSCoordsList.append(polarToCartesian(polarNGSCoords[i,:]))
         cartNGSCoords = np.asarray(cartNGSCoordsList)
+        print(cartNGSCoords)
         mLO           = MavisLO(path, parametersFile,verbose=verbose)
         Ctot          = mLO.computeTotalResidualMatrix(np.array(cartPointingCoords)
                                                        , cartNGSCoords, NGS_flux, 
@@ -319,11 +320,16 @@ def overallSimulation(path, parametersFile, outputDir, outputFile, doConvolve=Fa
             hdr1['CCX'+str(i).zfill(4)] = pp[0,i]
             hdr1['CCY'+str(i).zfill(4)] = pp[1,i]
         if addSrAndFwhm:
+            sr=[]
+            fwhm=[]
             for i in range(cube.shape[0]):
-                hdr1['SR'+str(i).zfill(4)]   = getStrehl(cube[i,:,:], fao.ao.tel.pupil, fao.freq.sampRef)
+                temp=getStrehl(cube[i,:,:], fao.ao.tel.pupil, fao.freq.sampRef)
+                hdr1['SR'+str(i).zfill(4)]   = temp
+                sr.append(temp)
             for i in range(cube.shape[0]):
-                hdr1['FWHM'+str(i).zfill(4)] = getFWHM(cube[i,:,:], fao.freq.psInMas[0], method='contour', nargout=1)
-            
+                temp=getFWHM(cube[i,:,:], fao.freq.psInMas[0], method='contour', nargout=1)
+                hdr1['FWHM'+str(i).zfill(4)] = temp
+                fwhm.append(temp)
         # header of the coordinates
         hdr2 = hdul1[2].header
         hdr2['TIME'] = now.strftime("%Y%m%d_%H%M%S")
@@ -334,3 +340,5 @@ def overallSimulation(path, parametersFile, outputDir, outputFile, doConvolve=Fa
         hdul1.writeto( os.path.join(outputDir, outputFile + '.fits'), overwrite=True)
         if verbose:
             print("Output cube shape:", cube.shape)
+        return np.array(sr),np.array(fwhm), pp
+    

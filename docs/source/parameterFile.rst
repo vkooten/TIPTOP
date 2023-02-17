@@ -50,6 +50,7 @@ The mandatory sections and their content are:
 
 
 .. option:: ZenithAngle
+Ch@riss@1977
 
    **Optional**, 
    *type : float*, 
