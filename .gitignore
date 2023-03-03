@@ -127,3 +127,13 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+run_GNAO.bat
+sky_coverage_1NGS_output.npz
+sky_coverage_test.png
+GNAO_simulation_NF.py
+GNAO_simulation.py
+GNAO_compare_OOMAO.py
+GNAO_compare_OOMAO.py
+GNAO_simulation.py
+GNAO_compare_OOMAO.py
+GNAO_simulation.py
